@@ -1,27 +1,18 @@
+"use client";
+
 import React from "react";
 import Navigation from "@/app/_components/navigation";
-import logo from "@/public/logo.png";
-import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
   return (
     <header
-      className={
-        "px-8 py-5 text-xl font-semibold border-b border-b-primary-800"
-      }
+      className={`px-8 py-5 text-xl font-semibold border-b ${isHomePage ? "border-transparent" : "border-b-primary-800"}`}
     >
-      <div className={"max-w-7xl mx-auto flex justify-between items-center"}>
-        <div className={"flex gap-x-4 items-center"}>
-          <Image
-            src={logo}
-            alt={"Header - The wild oasis Logo"}
-            height={70}
-            width={70}
-          />
-          <p>The Wild Oasis</p>
-        </div>
-        <Navigation />
-      </div>
+      <Navigation />
     </header>
   );
 }

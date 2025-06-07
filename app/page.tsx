@@ -1,6 +1,21 @@
+import Image from "next/image";
+import bg from "@/public/bg.png";
+import Link from "next/link";
 
 export default function Home() {
   return (
-      <p className={"text-2xl font-bold"}>Hello World</p>
+    <div>
+      <Image
+        src={bg}
+        alt={"Background - Image of cabin"}
+        fill
+        className={"object-cover object-top -z-10"}
+      />
+
+      <div className={"flex flex-col items-center gap-y-16"}>
+        <p className={"text-7xl"}>Welcome to paradise</p>
+        <Link href={"#"}>Explore luxury cabins</Link>
+      </div>
+    </div>
   );
 }
