@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen bg-primary-900 text-accent-50 grid grid-rows-[auto_1fr]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen bg-primary-950 text-primary-100 grid grid-rows-[auto_1fr] font-semibold`}
       >
         <Header />
         <Main>{children}</Main>
