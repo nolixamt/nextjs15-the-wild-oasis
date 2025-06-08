@@ -2,20 +2,33 @@ import "server-only";
 
 import { supabase } from "./supabase";
 import { TCabin } from "./types";
+import { notFound } from "next/navigation";
 
 const fetchCabins = async (): Promise<TCabin[]> => {
-  let { data, error }: { data: TCabin[] | null; error: any } = await supabase
-    .from("cabins")
-    .select(
-      `id, name, maxCapacity, regularPrice, discount, description, image`,
-    );
+  const { data, error } = await supabase.from("cabins").select("*");
 
-  if (error) {
-    console.error(error);
+  if (error || !data) {
+    console.error(error || `Cabins not found`);
+    notFound();
   }
-  return data || [];
+
+  return data;
 };
 
-const Services = { fetchCabins };
+const fetchCabinById = async (id: string): Promise<TCabin> => {
+  const { data, error } = await supabase
+    .from("cabins")
+    .select("*")
+    .eq("id", id)
+    .single<TCabin>();
 
+  if (error || !data) {
+    console.error(error || `Cabin with id ${id} not found`);
+    notFound();
+  }
+
+  return data;
+};
+
+const Services = { fetchCabins, fetchCabinById };
 export default Services;

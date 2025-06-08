@@ -5,7 +5,6 @@ import { getCabins } from "@/app/_lib/actions";
 
 export default async function Page() {
   const cabins = await getCabins();
-  console.log(cabins);
 
   return (
     <>
