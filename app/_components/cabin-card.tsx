@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import cabin1 from "@/public/cabin-001.webp";
 import H3 from "@/app/_components/h3";
 import { UsersIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
@@ -11,11 +10,14 @@ type CabinCardProps = {
 };
 
 export default function CabinCard({ cabin }: CabinCardProps) {
-  const { id, discount, image, name, maxCapacity, regularPrice, description } =
-    cabin;
+  const { id, discount, image, name, maxCapacity, regularPrice } = cabin;
 
   return (
-    <div className={"grid grid-cols-[1fr_2fr] border border-primary-800"}>
+    <div
+      className={
+        "grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)] border border-primary-800"
+      }
+    >
       <div className={"border-r border-r-primary-800 relative"}>
         <Image
           src={image}
@@ -54,7 +56,7 @@ export default function CabinCard({ cabin }: CabinCardProps) {
         </div>
         <div className={"border-primary-800 text-right border-t"}>
           <Link
-            href={"#"}
+            href={`/cabins/${id}`}
             className={
               " border-l-primary-800 inline-block py-4 px-6 border-l hover:bg-accent-500 hover:text-primary-900 transition-all"
             }
