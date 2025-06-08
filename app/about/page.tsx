@@ -1,7 +1,6 @@
 import React from "react";
-import H1 from "@/app/_components/h1";
 import Image from "next/image";
-
+import H1 from "@/app/_components/h1";
 import image1 from "@/public/about-1.jpg";
 import image2 from "@/public/about-2.jpg";
 
