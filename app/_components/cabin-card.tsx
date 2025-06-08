@@ -4,33 +4,50 @@ import cabin1 from "@/public/cabin-001.webp";
 import H3 from "@/app/_components/h3";
 import { UsersIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import { TCabin } from "@/app/_lib/types";
 
-export default function CabinCard() {
+type CabinCardProps = {
+  cabin: TCabin;
+};
+
+export default function CabinCard({ cabin }: CabinCardProps) {
+  const { id, discount, image, name, maxCapacity, regularPrice, description } =
+    cabin;
+
   return (
     <div className={"grid grid-cols-[1fr_2fr] border border-primary-800"}>
       <div className={"border-r border-r-primary-800 relative"}>
         <Image
-          src={cabin1}
-          alt={"Image of cabin 1"}
+          src={image}
+          alt={`Image of cabin ${name}`}
           fill
           className={"object-cover"}
         />
       </div>
       <div className={"grid grid-rows-[1fr_auto]"}>
         <div className={"py-4 px-6"}>
-          <H3>Cabin 001</H3>
+          <H3>Cabin {name}</H3>
           <div className={"flex gap-x-2 mb-6"}>
             <UsersIcon width={20} height={20} className={"text-primary-700"} />
             <p>
-              For up to <span className={"font-bold"}>2</span> guests
+              For up to <span className={"font-bold"}>{maxCapacity}</span>{" "}
+              guests
             </p>
           </div>
           <div className={"flex justify-end"}>
             <div className={"flex gap-x-2 items-end"}>
-              <p className={"text-3xl"}>$200</p>
+              <p className={"text-3xl"}>
+                {discount ? (
+                  <span>${regularPrice - discount}</span>
+                ) : (
+                  regularPrice
+                )}
+              </p>
               <p>
-                <span className={"text-primary-700 line-through"}>$250</span> /
-                night
+                <span className={"text-primary-700 line-through"}>
+                  {discount ? regularPrice : ""}
+                </span>{" "}
+                / night
               </p>
             </div>
           </div>

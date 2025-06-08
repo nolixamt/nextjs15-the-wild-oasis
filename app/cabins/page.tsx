@@ -1,8 +1,12 @@
 import React from "react";
-import CabinCard from "@/app/_components/cabin-card";
 import H1 from "@/app/_components/h1";
+import CabinList from "@/app/_components/cabin-list";
+import { getCabins } from "@/app/_lib/actions";
 
-export default function Page() {
+export default async function Page() {
+  const cabins = await getCabins();
+  console.log(cabins);
+
   return (
     <>
       <H1>Our Luxury Cabins</H1>
@@ -14,13 +18,7 @@ export default function Page() {
         away from home. The perfect spot for a peaceful, calm vacation. Welcome
         to paradise.
       </p>
-      <div className={"grid grid-cols-1 md:grid-cols-2 gap-10 "}>
-        <CabinCard />
-        <CabinCard />
-        <CabinCard />
-        <CabinCard />
-        <CabinCard />
-      </div>
+      <CabinList cabins={cabins} />
     </>
   );
 }
