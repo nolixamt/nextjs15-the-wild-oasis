@@ -5,6 +5,7 @@ import { getCabins } from "@/app/_lib/actions";
 
 export default async function Page() {
   const cabins = await getCabins();
+  const sortedCabins = [...cabins].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <>
@@ -17,7 +18,7 @@ export default async function Page() {
         away from home. The perfect spot for a peaceful, calm vacation. Welcome
         to paradise.
       </p>
-      <CabinList cabins={cabins} />
+      <CabinList cabins={sortedCabins} />
     </>
   );
 }

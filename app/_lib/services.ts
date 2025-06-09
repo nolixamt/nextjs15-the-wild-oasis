@@ -7,8 +7,8 @@ import { notFound } from "next/navigation";
 const fetchCabins = async (): Promise<TCabin[]> => {
   const { data, error } = await supabase.from("cabins").select("*");
 
-  if (error || !data) {
-    console.error(error || `Cabins not found`);
+  if (error) {
+    console.error(error);
     notFound();
   }
 
@@ -22,8 +22,8 @@ const fetchCabinById = async (id: string): Promise<TCabin> => {
     .eq("id", id)
     .single<TCabin>();
 
-  if (error || !data) {
-    console.error(error || `Cabin with id ${id} not found`);
+  if (error) {
+    console.log(error);
     notFound();
   }
 
