@@ -1,16 +1,14 @@
 import React from "react";
 import { TCabin } from "@/app/_lib/types";
 import Image from "next/image";
+import TextExpander from "@/app/_components/text-expander";
 
 type CabinProps = {
   cabin: TCabin;
 };
 
 export default function Cabin({ cabin }: CabinProps) {
-  const { id, discount, image, name, maxCapacity, regularPrice, description } =
-    cabin;
-
-  console.log(image);
+  const { image, name, maxCapacity, description } = cabin;
 
   return (
     <div
@@ -33,7 +31,9 @@ export default function Cabin({ cabin }: CabinProps) {
           }
         >{`Cabin ${name}`}</p>
         <div className={"space-y-3 mb-6 pr-10"}>
-          <p className={"text-primary-300 mb-10"}>{description}</p>
+          <p className={"text-primary-300 mb-10"}>
+            <TextExpander text={description} />
+          </p>
           <p>
             For up <span className={"font-extrabold"}>{maxCapacity}</span>{" "}
             guests
