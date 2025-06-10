@@ -7,3 +7,16 @@ export type TCabin = {
   description: string;
   image: string;
 };
+
+export type TGuest = {
+  id: number;
+  fullName: string;
+  email: string;
+  nationality: string;
+  nationalID: string;
+  countryFlag: string;
+};
+
+export type TCountry = {};
+
+export type TFilter = "all" | "small" | "medium" | "large";

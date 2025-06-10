@@ -1,15 +1,21 @@
-import React from "react";
+import React, { Suspense } from "react";
 import H1 from "@/app/_components/h1";
 import CabinList from "@/app/_components/cabin-list";
-import { getCabins } from "@/app/_lib/actions";
+import Filter from "@/app/_components/filter";
+import { TFilter } from "@/app/_lib/types";
+import Spinner from "@/app/_components/spinner";
 
-export default async function Page() {
-  const cabins = await getCabins();
-  const sortedCabins = [...cabins].sort((a, b) => a.name.localeCompare(b.name));
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ capacity: TFilter }>;
+}) {
+  const filter = (await searchParams).capacity ?? "all";
 
   return (
     <>
       <H1>Our Luxury Cabins</H1>
+
       <p className={"text-primary-200 mb-10"}>
         Cozy yet luxurious cabins, located right in the heart of the Italian
         Dolomites. Imagine waking up to beautiful mountain views, spending your
@@ -18,7 +24,12 @@ export default async function Page() {
         away from home. The perfect spot for a peaceful, calm vacation. Welcome
         to paradise.
       </p>
-      <CabinList cabins={sortedCabins} />
+
+      <Filter />
+
+      <Suspense fallback={<Spinner />} key={filter}>
+        <CabinList filter={filter} />
+      </Suspense>
     </>
   );
 }

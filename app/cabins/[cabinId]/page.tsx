@@ -8,7 +8,7 @@ export default async function Page({
   params: Promise<{ cabinId: string }>;
 }) {
   const { cabinId } = await params;
-  const cabin = await getCabinById(cabinId);
+  const cabin = await getCabinById(parseInt(cabinId));
 
   return <Cabin cabin={cabin} />;
 }
