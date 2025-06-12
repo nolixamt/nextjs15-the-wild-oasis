@@ -1,14 +1,28 @@
-import React from "react";
-import { getBookings } from "@/app/_lib/actions";
+"use client";
+
+import React, { useOptimistic } from "react";
 import Reservation from "@/app/_components/reservation";
+import { TBooking } from "@/app/_lib/types";
 
-export default async function ReservationList() {
-  const bookings = await getBookings();
-
+export default function ReservationList({
+  bookings,
+}: {
+  bookings: TBooking[];
+}) {
+  const [optimisticBookings, optimisticDelete] = useOptimistic(
+    bookings,
+    (curBookings, bookingId) => {
+      return curBookings.filter((booking) => booking.id !== bookingId);
+    },
+  );
   return (
     <div className={"space-y-5"}>
-      {bookings.map((booking) => (
-        <Reservation reservation={booking} key={booking.id} />
+      {optimisticBookings.map((booking) => (
+        <Reservation
+          reservation={booking}
+          key={booking.id}
+          optimisticDelete={optimisticDelete}
+        />
       ))}
     </div>
   );

@@ -1,16 +1,31 @@
-import React from "react";
-import { TBooking } from "@/app/_lib/types";
+import React, { useEffect, useState } from "react";
+import { TBooking, TCabin } from "@/app/_lib/types";
 import { getCabinById } from "@/app/_lib/actions";
 import Image from "next/image";
 import EditBtn from "@/app/_components/edit-btn";
 import DeleteBtn from "@/app/_components/delete-btn";
+import Spinner from "@/app/_components/spinner";
 
 type ReservationProps = {
   reservation: TBooking;
+  optimisticDelete: (id: number) => void;
 };
 
-export default async function Reservation({ reservation }: ReservationProps) {
-  const cabin = await getCabinById(reservation.cabinId);
+export default function Reservation({
+  reservation,
+  optimisticDelete,
+}: ReservationProps) {
+  const [cabin, setCabin] = useState<TCabin | null>(null);
+
+  useEffect(() => {
+    async function fetchCabin() {
+      const data = await getCabinById(reservation.cabinId);
+      setCabin(data);
+    }
+    fetchCabin();
+  }, [reservation.cabinId]);
+
+  if (!cabin) return;
 
   return (
     <div
@@ -40,7 +55,10 @@ export default async function Reservation({ reservation }: ReservationProps) {
       </div>
       <div className={"grid grid-rows-2"}>
         <EditBtn />
-        <DeleteBtn bookingId={reservation.id} />
+        <DeleteBtn
+          bookingId={reservation.id}
+          optimisticDeleteAction={optimisticDelete}
+        />
       </div>
     </div>
   );

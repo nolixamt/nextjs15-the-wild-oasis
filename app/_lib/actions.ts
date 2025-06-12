@@ -19,7 +19,7 @@ export const getCabinById = async (id: number) => {
 
 export const deleteReservation = async (bookingId: number) => {
   await new Promise((res) => setTimeout(res, 2000));
-  // throw new Error();
+  throw new Error();
 
   await Services.deleteReservation(bookingId);
 
