@@ -6,7 +6,6 @@ import { getGuestById } from "@/app/_lib/actions";
 
 export default async function Page() {
   const guest = await getGuestById(1);
-
   return (
     <div>
       <H2>Update your guest profile</H2>

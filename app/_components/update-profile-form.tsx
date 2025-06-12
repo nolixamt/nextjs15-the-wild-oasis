@@ -1,10 +1,12 @@
 "use client";
 
-import React from "react";
 import { TGuest } from "@/app/_lib/types";
+import UpdateBtn from "@/app/_components/update-btn";
+import { updateProfileData } from "@/app/_lib/actions";
+import { ReactNode } from "react";
 
 type UpdateProfileFormProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   guest: TGuest;
 };
 
@@ -13,7 +15,10 @@ export default function UpdateProfileForm({
   guest,
 }: UpdateProfileFormProps) {
   return (
-    <form className={"max-w-2/3 bg-primary-900 p-6 space-y-5"}>
+    <form
+      action={updateProfileData}
+      className={"max-w-2/3 bg-primary-900 p-6 space-y-5"}
+    >
       <div className={"flex flex-col space-y-1"}>
         <label htmlFor={"fullname"}>Full name</label>
         <input
@@ -40,20 +45,20 @@ export default function UpdateProfileForm({
           disabled
         />
       </div>
-      <div className={"flex flex-col space-y-2"}>
-        <label htmlFor={"country"}>Where are you from?</label>
-        {children}
-      </div>
+      <div className={"flex flex-col space-y-2"}>{children}</div>
 
       <div className={"flex flex-col space-y-2"}>
-        <label htmlFor={"nationalid"}>National ID number</label>
+        <label htmlFor={"nationalID"}>National ID number</label>
         <input
           type="text"
-          id={"nationalid"}
-          name={"nationalid"}
+          id={"nationalID"}
+          name={"nationalID"}
           className={"bg-primary-300 p-2 text-primary-900"}
           defaultValue={guest.nationalID}
         />
+      </div>
+      <div className={"flex justify-end"}>
+        <UpdateBtn />
       </div>
     </form>
   );

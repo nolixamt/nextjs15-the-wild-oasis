@@ -17,6 +17,12 @@ export type TGuest = {
   countryFlag: string;
 };
 
-export type TCountry = {};
+export type TBooking = {
+  id: number;
+  cabinId: number;
+  numNights: number;
+  numGuests: number;
+  totalPrice: number;
+};
 
 export type TFilter = "all" | "small" | "medium" | "large";
